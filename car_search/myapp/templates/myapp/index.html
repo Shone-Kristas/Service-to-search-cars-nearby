@@ -1,0 +1,103 @@
+{% extends 'myapp/layout.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="create-new-cargo">
+        <h1>Create new Cargo</h1>
+        <form class="ui form" action="{% url 'create_cargo' %}" method="post">
+            {% csrf_token %}
+            <div class="create">
+                <div class="input-name">
+                    <input type="text" name="pick_up_add" placeholder="pick_up">
+                    <input type="text" name="delivery_add" placeholder="delivery">
+                    <input type="text" name="weight_add" placeholder="weight">
+                    <input type="text" name="description_add" placeholder="description">
+                </div>
+                <button>Create</button>
+            </div>
+        </form>
+    </div>
+    <div class="delete-cargo">
+        <form class="ui form" action="{% url 'delete_cargo' %}" method="post">
+            {% csrf_token %}
+            <div class="delete">
+                <div class="input-name">
+                    <input type="text" name="id_del" placeholder="Id Cargo">
+                </div>
+                <button>delete</button>
+            </div>
+        </form>
+    </div>
+    <div class="change-cargo">
+        <form class="ui form" action="{% url 'change_cargo' %}" method="post">
+            {% csrf_token %}
+            <div class="change">
+                <div class="input-name">
+                    <input type="text" name="id_cargo" placeholder="Id Cargo">
+                    <input type="text" name="weight_editing" placeholder="Weight">
+                    <input type="text" name="description_editing" placeholder="Description">
+                </div>
+                <button>change</button>
+            </div>
+        </form>
+    </div>
+    <div class="change-car">
+        <form class="ui form" action="{% url 'change_car' %}" method="post">
+            {% csrf_token %}
+            <div class="change">
+                <div class="input-name">
+                    <input type="text" name="id_car" placeholder="Id Car">
+                    <input type="text" name="location_editing" placeholder="Location">
+                </div>
+                <button>change</button>
+            </div>
+        </form>
+    </div>
+
+
+    <div class="get-list-cargo">
+        <form method="post" action="{% url 'get_list_cargo' %}">
+        {% csrf_token %}
+            <button type="submit">Get List Cargo</button>
+            {% for item in list %}
+                <div class="get-cargo">
+                    <div class="get-name">
+                        <p>
+                            pick_up city - <span class="br-text">{{ item.city_pick_up }}</span>
+                            delivery city - <span class="br-text">{{ item.city_delivery }}</span>
+                            cars - <span class="br-text">{{ item.total }}</span>
+                        </p>
+                    </div>
+                </div>
+            {% endfor %}
+        </form>
+    </div>
+    <div class="information-about-cargo">
+        <form method="post" action="{% url 'information_about_cargo' %}">
+        {% csrf_token %}
+            <div class="take-id">
+                <div class="input-name">
+                    <input type="text" name="id_cargo" placeholder="Id Cargo">
+                </div>
+                <button>Information About Cargo</button>
+            </div>
+            <div class="information">
+                <div class="get-name">
+                    <p>
+                        pick-up city - <span class="br-text">{{ slovar.location_pick_up }}</span>
+                        delivery city - <span class="br-text">{{ slovar.location_delivery }}</span>
+                        weight - <span class="br-text">{{ slovar.weight_cargo }}</span>
+                        description - <span class="br-text">{{ slovar.description_cargo }}</span>
+                    </p>
+                    {% for item in slovar.ghf %}
+                        <p>
+                            car number - <span class="br-text">{{ item.number }}</span>
+                            car location - <span class="br-text">{{ item.path }}</span>
+                        </p>
+                    {% endfor %}
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock content %}
