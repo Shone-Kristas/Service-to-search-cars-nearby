@@ -1,2 +1,3 @@
 .idea
 /car_search/.env
+__pycache__/
